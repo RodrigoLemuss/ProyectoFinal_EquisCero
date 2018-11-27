@@ -5,16 +5,15 @@
 using namespace std;
 using namespace cv;
 
+class Tarjeta
+{
+public:
+	int numeroTarjeta();
+
+};
 
 
-
-
-void probrarImg() {
-	
-	
-
-
-
-	
-	waitKey(0);
+int Tarjeta::numeroTarjeta() {
+	srand(5);
+	return (1 + rand() % 13);
 }
