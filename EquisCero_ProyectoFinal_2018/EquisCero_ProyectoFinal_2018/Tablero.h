@@ -1,6 +1,7 @@
 #pragma once
 #include <opencv2/opencv.hpp>
 #include "Tarjetas.h"
+#include "TableroOpencv.h"
 #include <iostream>
 using namespace std;
 using namespace cv;
@@ -33,8 +34,9 @@ public:
 	void insertarInicio();
 	void insertarFinal(int);
 	void asignarCoordenadas();
-	void avanzarCasilla();
+	void avanzarCasilla(Casilla *,int,int,int,Mat);
 	//void insertarPosicion(int posicion);
+	
 };
 
 
@@ -201,8 +203,54 @@ void ListaCasillas::asignarCoordenadas() {
 	
 }
  
-void ListaCasillas::avanzarCasilla() {
-	Tarjeta tarjetaObj;
+void ListaCasillas::avanzarCasilla(Casilla *puntero,int cont, int num_tarjeta,int num_jugador, Mat ventan) {
+	Casilla *aux = puntero;
+	Tablero TableroObjeto;
+	while (cont++ <= num_tarjeta)
+	{
+		if (cont == num_tarjeta)
+		{
+			aux->casilla_ocupada = true;
+			if (num_jugador == 1)
+			{
+				aux->rojo = true;
+				aux->azul = false;
+				aux->amarillo = false;
+				aux->verde = false;
+				//Dibujo la casilla
+				TableroObjeto.dibujarCasilla(Point(aux->coor_x,aux->coor_y),TableroObjeto.rojo,ventan);
+			}
+			else if (num_jugador == 2) {
+				aux->rojo = false;
+				aux->azul = true;
+				aux->amarillo = false;
+				aux->verde = false;
+				//Dibujo la casilla
+				TableroObjeto.dibujarCasilla(Point(aux->coor_x, aux->coor_y), TableroObjeto.azul, ventan);
+			}
+			else if (num_jugador == 3) {
+				aux->rojo = false;
+				aux->azul = false;
+				aux->amarillo = true;
+				aux->verde = false;
+
+				//Dibujo la casilla
+				TableroObjeto.dibujarCasilla(Point(aux->coor_x, aux->coor_y), TableroObjeto.amarillo, ventan);
+			}
+			else if (num_jugador == 4) {
+				aux->rojo = false;
+				aux->azul = false;
+				aux->amarillo = false;
+				aux->verde = true;
+
+				//Dibujo la casilla
+				TableroObjeto.dibujarCasilla(Point(aux->coor_x, aux->coor_y), TableroObjeto.verde, ventan);
+			}
+		}
+		aux = aux->Sig;
+	}
+
 
 
 }
+
