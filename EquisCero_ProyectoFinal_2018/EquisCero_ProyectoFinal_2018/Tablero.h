@@ -32,9 +32,10 @@ public:
 	void mostrar();
 	void insertarFinal(int);
 	void asignarCoordenadas();
-	void avanzarCasilla(int,int,int,Mat);
+	void avanzarCasilla(int,int,int,Mat, int);
+	void getFichasDisponibles(string, int);
 	//void insertarPosicion(int posicion);
-	
+	int getGanador();
 };
 
 
@@ -133,60 +134,128 @@ void ListaCasillas::asignarCoordenadas() {
 	
 }
  
-void ListaCasillas::avanzarCasilla(int cont, int num_tarjeta,int num_jugador, Mat ventan) {
+void ListaCasillas::avanzarCasilla(int cont, int num_tarjeta,int num_jugador, Mat ventan, int origen) {
 	Casilla *aux;
 	Tablero TableroObjeto;
 	aux = Primero;
-	
-	while (cont <= num_tarjeta)
+	int contador_posiple = 0;
+	while (aux != NULL) //cont <= num_tarjeta
 	{
-		
-		if (cont == num_tarjeta)
+
+		if (aux->num_casilla == 5 and aux->casilla_ocupada == false) //es el primer turno
 		{
-			cout << cont<<" ";
-			aux->casilla_ocupada = true;
-			if (num_jugador == 1)
+			if (cont == num_tarjeta)
 			{
-				aux->rojo = true;
-				aux->azul = false;
-				aux->amarillo = false;
-				aux->verde = false;
-				//Dibujo la casilla
-				TableroObjeto.dibujarCasilla(Point(aux->coor_x,aux->coor_y),TableroObjeto.rojo,ventan);
+				cout << cont << " ";
+				aux->casilla_ocupada = true;
+				if (num_jugador == 1)
+				{
+					aux->rojo = true;
+					aux->azul = false;
+					aux->amarillo = false;
+					aux->verde = false;
+					//Dibujo la casilla
+					TableroObjeto.dibujarCasilla(Point(aux->coor_x, aux->coor_y), TableroObjeto.rojo, ventan);
+				}
 			}
-			else if (num_jugador == 2) {
-				aux->rojo = false;
-				aux->azul = true;
-				aux->amarillo = false;
-				aux->verde = false;
-				//Dibujo la casilla
-				
-				TableroObjeto.dibujarCasilla(Point(aux->coor_x, aux->coor_y), TableroObjeto.azul, ventan);
-			}
-			else if (num_jugador == 3) {
-				aux->rojo = false;
-				aux->azul = false;
-				aux->amarillo = true;
-				aux->verde = false;
 
-				//Dibujo la casilla
-				TableroObjeto.dibujarCasilla(Point(aux->coor_x, aux->coor_y), TableroObjeto.amarillo, ventan);
-			}
-			else if (num_jugador == 4) {
-				aux->rojo = false;
-				aux->azul = false;
-				aux->amarillo = false;
-				aux->verde = true;
 
-				//Dibujo la casilla
-				TableroObjeto.dibujarCasilla(Point(aux->coor_x, aux->coor_y), TableroObjeto.verde, ventan);
-			}
+			//if (cont == num_tarjeta)
+			//{
+			//	cout << cont << " ";
+			//	aux->casilla_ocupada = true;
+			//	if (num_jugador == 1)
+			//	{
+			//		aux->rojo = true;
+			//		aux->azul = false;
+			//		aux->amarillo = false;
+			//		aux->verde = false;
+			//		//Dibujo la casilla
+			//		TableroObjeto.dibujarCasilla(Point(aux->coor_x, aux->coor_y), TableroObjeto.rojo, ventan);
+			//	}
+			//	else if (num_jugador == 2) {
+			//		aux->rojo = false;
+			//		aux->azul = true;
+			//		aux->amarillo = false;
+			//		aux->verde = false;
+			//		//Dibujo la casilla
+
+			//		TableroObjeto.dibujarCasilla(Point(aux->coor_x, aux->coor_y), TableroObjeto.azul, ventan);
+			//	}
+			//	else if (num_jugador == 3) {
+			//		aux->rojo = false;
+			//		aux->azul = false;
+			//		aux->amarillo = true;
+			//		aux->verde = false;
+
+			//		//Dibujo la casilla
+			//		TableroObjeto.dibujarCasilla(Point(aux->coor_x, aux->coor_y), TableroObjeto.amarillo, ventan);
+			//	}
+			//	else if (num_jugador == 4) {
+			//		aux->rojo = false;
+			//		aux->azul = false;
+			//		aux->amarillo = false;
+			//		aux->verde = true;
+
+			//		//Dibujo la casilla
+			//		TableroObjeto.dibujarCasilla(Point(aux->coor_x, aux->coor_y), TableroObjeto.verde, ventan);
+			//	}
+			//}
+			aux = aux->Sig;
+
+
 		}
-		aux = aux->Sig;
-		cont++;
+
 	}
-
-
+	
 
 }
 
+int ListaCasillas::getGanador() {
+	Casilla *aux;
+	aux = Primero;
+	while (aux!=NULL)
+	{
+		if (aux->num_casilla == 3 and aux->puntos_ficha == 4) {
+			return 1;
+		}
+		else if (aux->num_casilla == 18 and aux->puntos_ficha == 4) {
+			return 2;
+		}
+		else if (aux->num_casilla == 33 and aux->puntos_ficha == 4) {
+			return 3;
+		}
+		else if (aux->num_casilla == 48 and aux->puntos_ficha == 4) {
+			return 4;
+		}
+		aux = aux->Sig;
+	}
+}
+
+void ListaCasillas::getFichasDisponibles(string jugador, int id) {
+	Casilla *aux;
+	aux = Primero;
+	int contador = 0;
+	cout << "Fichas Disponibles para : "<<jugador<<" en casillas : ";
+	while (aux != NULL)
+	{
+		contador++;
+		if (aux->rojo and id == 1)
+		{
+			cout << "#" << contador;
+		}
+		else if (aux->azul and id == 2) {
+			cout << "#" << contador;
+		}
+		else if (aux->amarillo and id == 3) {
+			cout << "#" << contador;
+		}
+		else if (aux->verde and id == 4) {
+			cout << "#" << contador;
+		}
+		else {
+			cout << "0";
+		}
+		aux = aux->Sig;
+	}
+}

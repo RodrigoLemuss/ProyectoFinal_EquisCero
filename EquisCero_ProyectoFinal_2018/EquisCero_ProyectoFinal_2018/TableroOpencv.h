@@ -23,7 +23,7 @@ public:
 	void dibujarCirculo(Point centro, Scalar color, Mat v);
 	void DrawRotatedRectangle(Point, Size, double, Scalar, Mat);
 	void dibujarCentro(Mat v);
-
+	
 
 };
 
@@ -62,3 +62,4 @@ void  Tablero::DrawRotatedRectangle(Point centerPoint, Size rectangleSize, doubl
 	// Now we can fill the rotated rectangle with our specified color
 	fillConvexPoly(v, vertices, 4, color);
 }
+
