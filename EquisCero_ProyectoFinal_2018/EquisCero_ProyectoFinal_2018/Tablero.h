@@ -34,7 +34,7 @@ public:
 	void insertarInicio();
 	void insertarFinal(int);
 	void asignarCoordenadas();
-	void avanzarCasilla(Casilla *,int,int,int,Mat);
+	void avanzarCasilla(int,int,int,Mat);
 	//void insertarPosicion(int posicion);
 	
 };
@@ -203,13 +203,17 @@ void ListaCasillas::asignarCoordenadas() {
 	
 }
  
-void ListaCasillas::avanzarCasilla(Casilla *puntero,int cont, int num_tarjeta,int num_jugador, Mat ventan) {
-	Casilla *aux = puntero;
+void ListaCasillas::avanzarCasilla(int cont, int num_tarjeta,int num_jugador, Mat ventan) {
+	Casilla *aux;
 	Tablero TableroObjeto;
-	while (cont++ <= num_tarjeta)
+	aux = Primero;
+	
+	while (cont <= num_tarjeta)
 	{
+		
 		if (cont == num_tarjeta)
 		{
+			cout << cont<<" ";
 			aux->casilla_ocupada = true;
 			if (num_jugador == 1)
 			{
@@ -226,6 +230,7 @@ void ListaCasillas::avanzarCasilla(Casilla *puntero,int cont, int num_tarjeta,in
 				aux->amarillo = false;
 				aux->verde = false;
 				//Dibujo la casilla
+				
 				TableroObjeto.dibujarCasilla(Point(aux->coor_x, aux->coor_y), TableroObjeto.azul, ventan);
 			}
 			else if (num_jugador == 3) {
@@ -248,6 +253,7 @@ void ListaCasillas::avanzarCasilla(Casilla *puntero,int cont, int num_tarjeta,in
 			}
 		}
 		aux = aux->Sig;
+		cont++;
 	}
 
 

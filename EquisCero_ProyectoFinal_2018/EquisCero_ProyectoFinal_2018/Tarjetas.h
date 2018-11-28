@@ -8,12 +8,12 @@ using namespace cv;
 class Tarjeta
 {
 public:
-	int numeroTarjeta();
+	int numeroTarjeta(int);
 
 };
 
 
-int Tarjeta::numeroTarjeta() {
-	srand(5);
+int Tarjeta::numeroTarjeta(int semilla) {
+	srand(semilla);
 	return (1 + rand() % 13);
 }
