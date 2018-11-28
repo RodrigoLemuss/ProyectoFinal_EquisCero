@@ -11,11 +11,23 @@ Tablero colores;
 class Jugador
 {
 public:
-	int idJugador;
+	int idJugador=0;
 	string nombreJugador;
-
+	void setIdjugador(int);
+	void setNombreJugador(int);
 	//void registrarJugadores(Mat ventana_jugadores, Jugador *);
 };
+
+void Jugador::setIdjugador(int id) {
+	idJugador = id;
+}
+void Jugador::setNombreJugador(int cont) {
+	string nombre_aux;
+	cout << "Nombre Jugador #" << cont + 1 << " >";
+	cin >> nombre_aux;
+	nombreJugador = nombre_aux;
+}
+
 
 //void Jugador::registrarJugadores(Mat ventana_jugadores, Jugador *p) {
 //	bool cuadrotexto = true;

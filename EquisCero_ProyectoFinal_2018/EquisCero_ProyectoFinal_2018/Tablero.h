@@ -15,7 +15,7 @@ class Casilla
 	//Conocer que jugador esta usando esta casilla
 	bool rojo = false, verde = false, amarillo = false, azul = false;
 	//Valores para facilitar el movimiento de las fichas
-	int coor_x, coor_y, num_casilla, puntos_ficha;
+	int coor_x, coor_y, num_casilla, puntos_ficha=0;
 	//Punteros para recorrer el tablero
 	Casilla *Sig;
 	Casilla *Ant;
@@ -29,9 +29,7 @@ class ListaCasillas
 public:
 	void Inicializa();
 	bool vacia();
-	int tamano();
 	void mostrar();
-	void insertarInicio();
 	void insertarFinal(int);
 	void asignarCoordenadas();
 	void avanzarCasilla(int,int,int,Mat);
@@ -57,38 +55,7 @@ bool ListaCasillas::vacia() {
 	}
 }
 
-int ListaCasillas::tamano() {
-	int cont=0;
-	Casilla *aux;
-	aux = Ultimo;
 
-	while (aux != NULL)
-	{	
-		cont++;
-		aux = aux->Ant;
-	}
-	return cont;
-}
-
-void ListaCasillas::insertarInicio() {
-	Casilla *temp = new Casilla();
-	/*
-	_Asignar valores
-	*/
-	temp->Sig = NULL;
-	temp->Ant = NULL;
-
-	if (vacia())
-	{
-		Primero = temp;
-		Ultimo = temp;
-	}
-	else {
-		temp->Sig = Primero;
-		Primero->Ant = temp;
-		Primero = temp;
-	}
-}
 
 void ListaCasillas::insertarFinal(int num_casillas) {
 	
@@ -114,44 +81,7 @@ void ListaCasillas::insertarFinal(int num_casillas) {
 		}
 	}
 }
-//
-//void ListaCasillas::insertarPosicion(int po) {
-//	Casilla *temp = new Casilla();
-//	/*
-//	_Asignar valores
-//	*/
-//	temp->Sig = NULL;
-//	temp->Ant = NULL;
-//	if (vacia())
-//	{
-//		Primero = temp;
-//		Ultimo = temp;
-//	}
-//	else {
-//		if (po==1)
-//		{
-//			insertarInicio();
-//		}
-//		else if (po == (tamano()+1)) {
-//			//insertarFinal();
-//		}
-//		else if (po>1 and po <(tamano()+1)) {
-//			Casilla *aux;
-//			aux = Primero;
-//			for (int i = 1; i < po; i++)
-//			{
-//				aux = aux->Sig;
-//			}
-//			aux->Ant->Sig = temp;
-//			temp->Sig = aux;
-//			temp->Ant = aux->Ant;
-//			aux->Ant = temp;
-//		}
-//		else {
-//			cout << "Posicion no encnontrada";
-//		}
-//	}
-//}
+
 
 void ListaCasillas::mostrar() {
 
